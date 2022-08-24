@@ -14,12 +14,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
+const utility_1 = require("../utility");
+const routes_1 = require("./routes");
 exports.default = (app) => __awaiter(void 0, void 0, void 0, function* () {
     app.use(express_1.default.json());
     app.use(express_1.default.urlencoded({ extended: true }));
     app.use((0, cors_1.default)());
+    app.use("/auth", routes_1.AuthRoute);
+    app.use(utility_1.errorHandler);
     app.get("/api", (req, res) => {
         return res.status(200).json({ message: "connected ....... again" });
     });
+    // app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+    //   res.status(500).json({ message: err.message });
+    // });
     //return app;
 });
