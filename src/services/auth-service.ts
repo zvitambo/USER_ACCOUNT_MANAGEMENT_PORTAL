@@ -3,7 +3,8 @@ import { CreateUserInputs, UserLoginInputs } from './../database/dto/UserDto';
 import { GeneratePassword, GenerateSignature, FormateData, ValidatePassword } from './../utility/AuthUtility';
 import { genSalt } from 'bcrypt';
 import { UserDoc } from '../database/models';
-import { IAuthRepository, AuthPayload } from './../database/dto/AuthDto';
+import { AuthPayload } from './../database/dto/AuthDto';
+import { IAuthRepository } from './../database/repository/contracts';
 import { AuthRepository } from './../database/repository/auth-repository';
 
 //All business logic will be here 

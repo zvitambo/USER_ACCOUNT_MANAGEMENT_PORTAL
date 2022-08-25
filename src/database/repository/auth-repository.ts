@@ -2,7 +2,7 @@
 
 //Dealing with data base operations 
 
-import { IAuthRepository } from "../dto";
+import { IAuthRepository } from "./contracts";
 import { User, UserDoc } from "../models"
 
 

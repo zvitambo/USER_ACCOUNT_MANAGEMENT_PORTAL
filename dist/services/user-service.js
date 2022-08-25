@@ -9,19 +9,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateUserProfile = exports.getUserProfile = void 0;
-const user_service_1 = require("./../../services/user-service");
-const userService = new user_service_1.UserService();
-const getUserProfile = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const { _id } = req.user;
-        const data = yield userService.getUserProfile(_id);
-        return res.status(200).json(data);
+exports.UserService = void 0;
+const AuthUtility_1 = require("./../utility/AuthUtility");
+const user_repository_1 = require("../database/repository/user-repository");
+class UserService {
+    constructor() {
+        this.repository = new user_repository_1.UserRepository();
     }
-    catch (error) {
-        next(error);
+    getUserProfile(_id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const profile = yield this.repository.findById(_id);
+                return (0, AuthUtility_1.FormateData)(profile);
+            }
+            catch (error) {
+                throw new Error("API Error", { cause: error });
+            }
+        });
     }
-});
-exports.getUserProfile = getUserProfile;
-const updateUserProfile = () => { };
-exports.updateUserProfile = updateUserProfile;
+}
+exports.UserService = UserService;

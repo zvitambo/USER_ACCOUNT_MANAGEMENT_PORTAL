@@ -1,7 +1,7 @@
 import express, {Application} from "express";
 import cors from "cors";
 import {errorHandler} from '../utility';
-import { AuthRoute } from "./routes";
+import { AuthRoute, UserRoute } from "./routes";
 
 
 export default async (app: Application) => {
@@ -10,6 +10,7 @@ export default async (app: Application) => {
     app.use(cors());
 
     app.use("/auth", AuthRoute);
+    app.use("/users", UserRoute);
     app.use(errorHandler);
 
     app.get("/api", (req, res) => {

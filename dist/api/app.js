@@ -21,6 +21,7 @@ exports.default = (app) => __awaiter(void 0, void 0, void 0, function* () {
     app.use(express_1.default.urlencoded({ extended: true }));
     app.use((0, cors_1.default)());
     app.use("/auth", routes_1.AuthRoute);
+    app.use("/users", routes_1.UserRoute);
     app.use(utility_1.errorHandler);
     app.get("/api", (req, res) => {
         return res.status(200).json({ message: "connected ....... again" });
