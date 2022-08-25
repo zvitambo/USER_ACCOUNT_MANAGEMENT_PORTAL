@@ -34,5 +34,32 @@ class UserRepository {
             }
         });
     }
+    update(_id, updateUserProfileInputs) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                let user = yield models_1.User.findById(_id);
+                const { firstName, lastName, userName, phone, website } = updateUserProfileInputs;
+                if (user) {
+                    user.firstName = firstName;
+                    user.lastName = lastName;
+                    user.userName = userName;
+                    user.phone = phone;
+                    user.website = website;
+                    user = yield user.save();
+                    return user;
+                }
+                return null;
+            }
+            catch (error) {
+                throw new Error("API Error", { cause: error });
+            }
+        });
+    }
+    addAddress(street, suite, city, zipcode, geo) {
+        throw new Error("Method not implemented.");
+    }
+    addCompany(name, catchPhrase, bs) {
+        throw new Error("Method not implemented.");
+    }
 }
 exports.UserRepository = UserRepository;

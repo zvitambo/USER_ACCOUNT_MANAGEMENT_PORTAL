@@ -23,5 +23,21 @@ const getUserProfile = (req, res, next) => __awaiter(void 0, void 0, void 0, fun
     }
 });
 exports.getUserProfile = getUserProfile;
-const updateUserProfile = () => { };
+const updateUserProfile = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { _id } = req.user;
+        const { firstName, lastName, userName, phone, website } = req.body;
+        const data = yield userService.updateUserProfile(_id, {
+            firstName,
+            lastName,
+            userName,
+            phone,
+            website,
+        });
+        return res.status(200).json(data);
+    }
+    catch (error) {
+        next(error);
+    }
+});
 exports.updateUserProfile = updateUserProfile;

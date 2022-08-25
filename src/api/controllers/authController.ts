@@ -35,9 +35,6 @@ export const register: RequestHandler = async(req, res, next) => {
 
 };
 
-
-
-
 export const login: RequestHandler = async (req, res, next) => {
     try {
       const userLoginInputs = plainToClass(UserLoginInputs, req.body);

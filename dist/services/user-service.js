@@ -27,5 +27,16 @@ class UserService {
             }
         });
     }
+    updateUserProfile(_id, updateUserProfileInputs) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const user = yield this.repository.update(_id, updateUserProfileInputs);
+                return (0, AuthUtility_1.FormateData)(user);
+            }
+            catch (error) {
+                throw new Error("API Error", { cause: error });
+            }
+        });
+    }
 }
 exports.UserService = UserService;

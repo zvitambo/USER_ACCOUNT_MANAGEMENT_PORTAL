@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.EditUserProfileInputs = exports.UserLoginInputs = exports.CreateUserInputs = void 0;
+exports.UpdateUserProfileInputs = exports.UserLoginInputs = exports.CreateUserInputs = void 0;
 const class_validator_1 = require("class-validator");
 class CreateUserInputs {
 }
@@ -37,26 +37,26 @@ __decorate([
     __metadata("design:type", String)
 ], UserLoginInputs.prototype, "password", void 0);
 exports.UserLoginInputs = UserLoginInputs;
-class EditUserProfileInputs {
+class UpdateUserProfileInputs {
 }
 __decorate([
     (0, class_validator_1.Length)(2, 30),
     __metadata("design:type", String)
-], EditUserProfileInputs.prototype, "firstName", void 0);
+], UpdateUserProfileInputs.prototype, "firstName", void 0);
 __decorate([
     (0, class_validator_1.Length)(2, 30),
     __metadata("design:type", String)
-], EditUserProfileInputs.prototype, "lastName", void 0);
+], UpdateUserProfileInputs.prototype, "lastName", void 0);
 __decorate([
-    (0, class_validator_1.Length)(6, 56),
+    (0, class_validator_1.Length)(2, 30),
     __metadata("design:type", String)
-], EditUserProfileInputs.prototype, "address", void 0);
+], UpdateUserProfileInputs.prototype, "userName", void 0);
 __decorate([
     (0, class_validator_1.Length)(12, 30),
     __metadata("design:type", String)
-], EditUserProfileInputs.prototype, "website", void 0);
+], UpdateUserProfileInputs.prototype, "website", void 0);
 __decorate([
-    (0, class_validator_1.Length)(3, 30),
+    (0, class_validator_1.Length)(6, 30),
     __metadata("design:type", String)
-], EditUserProfileInputs.prototype, "company", void 0);
-exports.EditUserProfileInputs = EditUserProfileInputs;
+], UpdateUserProfileInputs.prototype, "phone", void 0);
+exports.UpdateUserProfileInputs = UpdateUserProfileInputs;
