@@ -21,3 +21,4 @@ const Authenticate = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
     }
 });
 exports.Authenticate = Authenticate;
+//# sourceMappingURL=Auth.js.map

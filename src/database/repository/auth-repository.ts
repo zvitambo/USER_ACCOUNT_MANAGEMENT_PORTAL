@@ -21,13 +21,14 @@ export class AuthRepository implements IAuthRepository<UserDoc> {
         verified: false,
         otp: 0,
         otp_expiry: null,
-        address: "",
+        address: [],
         website: "",
-        company: "",
+        company: [],
       });
       
       return user;
     } catch (error) {
+      
       throw new Error("API Error", { cause: error });
     }
   }

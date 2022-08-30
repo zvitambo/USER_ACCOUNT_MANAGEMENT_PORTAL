@@ -4,13 +4,17 @@ export const errorHandler = async(err: Error, req: Request, res: Response, next:
    
 
   process.on("uncaughtException", (ex) => {    
+    console.log("uncaughtException", ex);
     process.exit(1);
   });
 
   process.on("unhandledRejection", (ex) => {
+     console.log("unhandledRejection", ex);
     process.exit(1);
   });
-  res.status(500).json({ message: "Something went wrong", error: err });
+
+  console.log("cause", err.cause);
+  res.status(500).json({ message: "Something went wrong", error: err.message });
   next();
 
 }

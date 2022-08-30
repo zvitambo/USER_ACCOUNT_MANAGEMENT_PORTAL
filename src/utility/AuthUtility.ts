@@ -18,19 +18,27 @@ export const ValidatePassword = async (enteredPassword: string, savedPassword: s
 }
 
 export const GenerateSignature = (payload: AuthPayload) => {
-    return jwt.sign(payload, APP_SECRET, {expiresIn: '6h'});
+    return jwt.sign(payload, APP_SECRET, {expiresIn: '7d'});
 }
 
-export const ValidateSignature = async (req: Request)  => {
-    const signature = req.get('Authorization');
+export const ValidateSignature = async (req: Request) => {
+  try {
+    const signature = req.get("Authorization");
 
     if (signature) {
-        const payload = jwt.verify(signature.split(' ')[1], APP_SECRET) as AuthPayload;
-        req.user = payload;
-        return true;
+      const payload = jwt.verify(
+        signature.split(" ")[1],
+        APP_SECRET
+      ) as AuthPayload;
+      req.user = payload;
+      return true;
     }
     return false;
-}  
+  } catch (error) {
+  
+    return false;
+  }
+};  
 
 export const FormateData = (data: any) => {
   if (data) {

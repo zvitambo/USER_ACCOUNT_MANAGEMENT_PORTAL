@@ -9,3 +9,4 @@ dotenv_1.default.config();
 exports.APP_SECRET = process.env.APP_SECRET || 'my_temp_app_secret';
 exports.MONGO_URI = process.env.MONGO_URI || "mongodb://localhost/users";
 exports.PORT = process.env.PORT || 9000;
+//# sourceMappingURL=index.js.map

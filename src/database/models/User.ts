@@ -1,4 +1,6 @@
 import mongoose, {Schema, Document } from 'mongoose';
+import { AddressDoc } from './Address';
+import { CompanyDoc } from "./Company";
 
 
 interface UserDoc extends Document {
@@ -15,9 +17,9 @@ interface UserDoc extends Document {
   otp: Number;
   otp_expiry: Date;
 
-  address: string; // AddressDoc
+  address: [AddressDoc]; 
   website: string;
-  company: string; // CompanyDoc
+  company: [CompanyDoc]; 
 }
 
 
@@ -36,9 +38,10 @@ const UserSchema = new mongoose.Schema(
     otp: { type: Number },
     otp_expiry: { type: Date },
 
-    address: { type: String }, // AddressDoc
     website: { type: String },
-    company: { type: String }, // CompanyDoc
+
+    company: [{ type: Schema.Types.ObjectId, ref: "Company" }], // CompanyDoc
+    address: [{ type: Schema.Types.ObjectId, ref: "Address" }], // AddressDoc
   },
   {
     toJSON: {

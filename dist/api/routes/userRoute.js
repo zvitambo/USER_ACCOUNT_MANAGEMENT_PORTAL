@@ -12,3 +12,6 @@ exports.UserRoute = router;
 //router.use(Authenticate);
 router.get('/me', middlewares_1.Authenticate, controllers_1.getUserProfile);
 router.put("/me", middlewares_1.Authenticate, controllers_1.updateUserProfile);
+router.post("/address", middlewares_1.Authenticate, controllers_1.addUpdateUserAddress);
+router.post("/company", middlewares_1.Authenticate, controllers_1.addUpdateUserCompany);
+//# sourceMappingURL=userRoute.js.map

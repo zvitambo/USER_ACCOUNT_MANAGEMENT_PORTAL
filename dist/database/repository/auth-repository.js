@@ -27,9 +27,9 @@ class AuthRepository {
                     verified: false,
                     otp: 0,
                     otp_expiry: null,
-                    address: "",
+                    address: [],
                     website: "",
-                    company: "",
+                    company: [],
                 });
                 return user;
             }
@@ -62,3 +62,4 @@ class AuthRepository {
     }
 }
 exports.AuthRepository = AuthRepository;
+//# sourceMappingURL=auth-repository.js.map

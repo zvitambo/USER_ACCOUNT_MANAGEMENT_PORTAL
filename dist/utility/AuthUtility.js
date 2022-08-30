@@ -29,17 +29,22 @@ const ValidatePassword = (enteredPassword, savedPassword, salt) => __awaiter(voi
 });
 exports.ValidatePassword = ValidatePassword;
 const GenerateSignature = (payload) => {
-    return jsonwebtoken_1.default.sign(payload, config_1.APP_SECRET, { expiresIn: '6h' });
+    return jsonwebtoken_1.default.sign(payload, config_1.APP_SECRET, { expiresIn: '7d' });
 };
 exports.GenerateSignature = GenerateSignature;
 const ValidateSignature = (req) => __awaiter(void 0, void 0, void 0, function* () {
-    const signature = req.get('Authorization');
-    if (signature) {
-        const payload = jsonwebtoken_1.default.verify(signature.split(' ')[1], config_1.APP_SECRET);
-        req.user = payload;
-        return true;
+    try {
+        const signature = req.get("Authorization");
+        if (signature) {
+            const payload = jsonwebtoken_1.default.verify(signature.split(" ")[1], config_1.APP_SECRET);
+            req.user = payload;
+            return true;
+        }
+        return false;
     }
-    return false;
+    catch (error) {
+        return false;
+    }
 });
 exports.ValidateSignature = ValidateSignature;
 const FormateData = (data) => {
@@ -51,3 +56,4 @@ const FormateData = (data) => {
     }
 };
 exports.FormateData = FormateData;
+//# sourceMappingURL=AuthUtility.js.map

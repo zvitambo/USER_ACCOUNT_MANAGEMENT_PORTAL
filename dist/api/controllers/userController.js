@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateUserProfile = exports.getUserProfile = void 0;
+exports.addUpdateUserCompany = exports.addUpdateUserAddress = exports.updateUserProfile = exports.getUserProfile = void 0;
 const user_service_1 = require("./../../services/user-service");
 const userService = new user_service_1.UserService();
 const getUserProfile = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
@@ -41,3 +41,40 @@ const updateUserProfile = (req, res, next) => __awaiter(void 0, void 0, void 0, 
     }
 });
 exports.updateUserProfile = updateUserProfile;
+const addUpdateUserAddress = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { _id } = req.user;
+        const { street, suite, city, zipcode, lat, lng } = req.body;
+        const data = yield userService.addUpdateUserAddress(_id, {
+            street,
+            suite,
+            city,
+            zipcode,
+            lat,
+            lng,
+        });
+        return res.status(200).json(data);
+    }
+    catch (error) {
+        next(error);
+    }
+});
+exports.addUpdateUserAddress = addUpdateUserAddress;
+const addUpdateUserCompany = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { _id } = req.user;
+        const { name, catchPhrase, bs, code } = req.body;
+        const data = yield userService.addUpdateUserCompany(_id, {
+            name,
+            catchPhrase,
+            bs,
+            code
+        });
+        return res.status(200).json(data);
+    }
+    catch (error) {
+        next(error);
+    }
+});
+exports.addUpdateUserCompany = addUpdateUserCompany;
+//# sourceMappingURL=userController.js.map

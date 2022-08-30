@@ -60,3 +60,4 @@ __decorate([
     __metadata("design:type", String)
 ], UpdateUserProfileInputs.prototype, "phone", void 0);
 exports.UpdateUserProfileInputs = UpdateUserProfileInputs;
+//# sourceMappingURL=UserDto.js.map

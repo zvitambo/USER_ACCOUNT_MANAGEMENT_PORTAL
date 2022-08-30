@@ -10,7 +10,7 @@ export default async (app: Application) => {
     app.use(cors());
 
     app.use("/auth", AuthRoute);
-    app.use("/users", UserRoute);
+    app.use("/user", UserRoute);
     app.use(errorHandler);
 
     app.get("/api", (req, res) => {

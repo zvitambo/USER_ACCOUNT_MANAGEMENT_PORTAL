@@ -38,5 +38,28 @@ class UserService {
             }
         });
     }
+    addUpdateUserAddress(_id, createUpdateAddressInputs) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const user = yield this.repository.addAddress(_id, createUpdateAddressInputs);
+                return (0, AuthUtility_1.FormateData)(user);
+            }
+            catch (error) {
+                throw new Error("API Error", { cause: error });
+            }
+        });
+    }
+    addUpdateUserCompany(_id, createUpdateCompanyInputs) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const user = yield this.repository.addCompany(_id, createUpdateCompanyInputs);
+                return (0, AuthUtility_1.FormateData)(user);
+            }
+            catch (error) {
+                throw new Error("API Error", { cause: error });
+            }
+        });
+    }
 }
 exports.UserService = UserService;
+//# sourceMappingURL=user-service.js.map

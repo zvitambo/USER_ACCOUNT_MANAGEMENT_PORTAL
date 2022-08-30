@@ -1,6 +1,14 @@
-import { UpdateUserProfileInputs } from './../dto/UserDto';
+import { CreateUpdateCompanyInputs } from './../dto/CompanyDto';
+import { UpdateUserProfileInputs, CreateUpdateAddressInputs } from "./../dto";
 import { IUserRepository } from "./contracts";
-import { User, UserDoc } from "../models";
+import {
+  Address,
+  Company,
+  User,
+  UserDoc,
+  AddressDoc,
+  CompanyDoc,
+} from "../models";
 
 
 export class UserRepository implements IUserRepository<UserDoc> {
@@ -20,11 +28,15 @@ export class UserRepository implements IUserRepository<UserDoc> {
       throw new Error("API Error", { cause: error });
     }
   }
-  async update(_id: string, updateUserProfileInputs: UpdateUserProfileInputs): Promise<UserDoc | null> {
+  async update(
+    _id: string,
+    updateUserProfileInputs: UpdateUserProfileInputs
+  ): Promise<UserDoc | null> {
     try {
       let user = await User.findById(_id);
-      const {firstName, lastName, userName, phone, website} = updateUserProfileInputs;
-      if (user){
+      const { firstName, lastName, userName, phone, website } =
+        updateUserProfileInputs;
+      if (user) {
         user.firstName = firstName;
         user.lastName = lastName;
         user.userName = userName;
@@ -40,16 +52,114 @@ export class UserRepository implements IUserRepository<UserDoc> {
       throw new Error("API Error", { cause: error });
     }
   }
-  addAddress(
-    street: string,
-    suite: string,
-    city: string,
-    zipcode: string,
-    geo: Object
-  ): Promise<UserDoc> {
-    throw new Error("Method not implemented.");
+
+  async addAddress(
+    _id: string,
+    createUpdateAddressInputs: CreateUpdateAddressInputs
+  ): Promise<UserDoc | null> {
+    try {
+      let user = await User.findById(_id);
+
+      if (user) {
+
+       // let newAddress: AddressDoc;
+
+        let existingAddress = await Address.findOne({
+          street: createUpdateAddressInputs.street,
+          suite: createUpdateAddressInputs.suite,
+        });
+        
+        if (existingAddress)
+        {
+
+          existingAddress.city = createUpdateAddressInputs.city;
+          existingAddress.zipcode = createUpdateAddressInputs.zipcode;
+          existingAddress.lat = createUpdateAddressInputs.lat;
+          existingAddress.lng = createUpdateAddressInputs.lng;
+
+          await existingAddress.save();
+
+       
+          // const index = user.address.findIndex( a =>
+          // { 
+          //   return a.toString() === existingAddress!._id.toString();
+          // });
+
+           const index = user.address.findIndex( a => a.toString() === existingAddress!._id.toString() );
+
+         
+
+         if (index !== -1 ) {          
+
+          user.address[index] = existingAddress;
+         }
+         else 
+         {
+          user.address.push(existingAddress);
+         }
+
+         // newAddress = new Address({ existingAddress, ...createUpdateAddressInputs });
+        }
+        else
+        {
+           let newAddress = new Address({ ...createUpdateAddressInputs });
+           newAddress = await newAddress.save();
+           user.address.push(newAddress);
+          
+        }
+       
+        await user.save();
+        return user;
+      }
+      return null;
+    } catch (error) {
+      throw new Error("API Error", { cause: error });
+    }
   }
-  addCompany(name: string, catchPhrase: string, bs: string): Promise<UserDoc> {
-    throw new Error("Method not implemented.");
+
+  async addCompany(
+    _id: string,
+    createUpdateCompanyInputs: CreateUpdateCompanyInputs
+  ): Promise<UserDoc | null> {
+    try {
+      let user = await User.findById(_id);
+
+      if (user) {        
+
+        let existingCompany = await Company.findOne({
+          code: createUpdateCompanyInputs.code,
+        });
+
+        if (existingCompany) {
+          
+            existingCompany.name = createUpdateCompanyInputs.name;
+            existingCompany.catchPhrase = createUpdateCompanyInputs.catchPhrase;
+            existingCompany.bs = createUpdateCompanyInputs.bs;
+
+            await existingCompany.save();
+
+            const index = user.company.findIndex( c => c._id.toString() === existingCompany!._id.toString() );
+
+            if (index !== -1)
+            {
+              user.company[index] = existingCompany;
+            }else{
+              user.company.push(existingCompany);
+            }
+         
+        } else {
+          let newCompany: CompanyDoc = new Company({ ...createUpdateCompanyInputs });
+          await newCompany.save();
+          user.company.push(newCompany);
+
+        }        
+        await user.save();
+        return user;
+      }
+      return null;
+    } catch (error) {
+      
+     throw new Error("API Error", { cause: error });
+    }
   }
 } 

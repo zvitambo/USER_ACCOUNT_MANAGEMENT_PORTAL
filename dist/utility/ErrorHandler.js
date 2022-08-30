@@ -12,12 +12,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.errorHandler = void 0;
 const errorHandler = (err, req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     process.on("uncaughtException", (ex) => {
+        console.log("uncaughtException", ex);
         process.exit(1);
     });
     process.on("unhandledRejection", (ex) => {
+        console.log("unhandledRejection", ex);
         process.exit(1);
     });
-    res.status(500).json({ message: "Something went wrong", error: err });
+    console.log("cause", err.cause);
+    res.status(500).json({ message: "Something went wrong", error: err.message });
     next();
 });
 exports.errorHandler = errorHandler;
+//# sourceMappingURL=ErrorHandler.js.map
